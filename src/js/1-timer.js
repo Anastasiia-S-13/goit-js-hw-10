@@ -42,6 +42,7 @@ class Timer {
                 position:  'topCenter',
                 message: 'Please choose a date in the future'
             });
+            this.isActive = false;
         } else {
             this.timerId = setInterval(() => {
             const startTime = Date.now();

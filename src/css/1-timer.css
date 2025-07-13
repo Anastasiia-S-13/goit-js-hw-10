@@ -18,6 +18,7 @@
   font-size: 16px;
   padding: 10px 20px;
   color: #190404;
+  transition: background-color 250ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 
 .timer {

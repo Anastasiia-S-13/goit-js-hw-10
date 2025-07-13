@@ -19,6 +19,7 @@
 
 .main-button:hover,
 .go-back:hover,
-.btn-delay:hover {
+.btn-delay:hover,
+.start:hover {
   background-color: lightpink;
 }
