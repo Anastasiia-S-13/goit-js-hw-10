@@ -3,16 +3,19 @@ import "flatpickr/dist/flatpickr.min.css";
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
-const btn = document.querySelector(".start");
+const input = document.querySelector(".chose-date")
 const dataDays = document.querySelector("[data-days]");
 const dataHours = document.querySelector("[data-hours]");
 const dataMinutes = document.querySelector("[data-minutes]");
 const dataSeconds = document.querySelector("[data-seconds]");
+const btn = document.querySelector(".start");
+btn.disabled = true;
 
 class Timer {
     constructor(selector) {
         this.isActive = false;
         this.userSelectedDate = null;
+        this.selectedTime = null;
         const options = {
             enableTime: true,
             time_24hr: true,
@@ -24,25 +27,41 @@ class Timer {
             onClose: (selectedDates) => {
                 console.log(selectedDates[0]);
                 this.userSelectedDate = selectedDates[0];
+                const currentTime = Date.now();
+                const selectedTime = this.userSelectedDate?.getTime();
+
+                if (selectedTime && selectedTime > currentTime) {
+                    btn.disabled = false;
+                } else {
+                    btn.disabled = true;
+                     iziToast.error({
+                position:  'topCenter',
+                message: 'Please choose a date in the future'
+            });
+                }
             },
         };
-        flatpickr("#datetime-picker", options);
+        this.picker = flatpickr(input, options);
     };
 
     start() {
         if (this.isActive) {
             return;
-        }
+        };
+
         this.isActive = true;
-        const selectedTime = this.userSelectedDate?.getTime();
+        btn.disabled = true;
+        this.picker.altInput.disabled = true;
 
         const currentTime = Date.now();
+        const selectedTime = this.userSelectedDate?.getTime();
+
         if (!selectedTime || selectedTime < currentTime) {
+            this.isActive = false;
             iziToast.warning({
-                position:  'topCenter',
+                position: 'topCenter',
                 message: 'Please choose a date in the future'
             });
-            this.isActive = false;
         } else {
             this.timerId = setInterval(() => {
             const startTime = Date.now();
@@ -51,6 +70,8 @@ class Timer {
                     clearInterval(this.timerId);
                     updateClockFace(this.convertMs(0));
                     this.isActive = false;
+                    btn.disabled = false;
+                    this.picker.altInput.disabled = false;
                     return;
                 };
                 const time = this.convertMs(deltaTime);
@@ -58,7 +79,7 @@ class Timer {
                 console.log(time);
             }, 1000);
         }
-    };
+    }
 
     convertMs(ms) {
         const second = 1000;

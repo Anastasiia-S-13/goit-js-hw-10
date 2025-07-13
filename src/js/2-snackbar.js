@@ -8,7 +8,7 @@ function createNotification(event) {
     event.preventDefault();
 
     const isSuccess = event.target.state.value;
-    const delay = event.target.delay.value.trim();
+    const delay = event.target.delay.value;
 
     const promise = new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -26,7 +26,7 @@ function createNotification(event) {
                 });
                 reject(`Rejected promise in ${delay}ms`);
             }
-        }, `${delay}`);
+        }, delay);
     });
 
     promise
