@@ -11,3 +11,6 @@
 @import url('./animations.css');
 
 /* Sections style */
+@import url('./1-timer.css');
+@import url('./main.css');
+@import url('./2-snackbar.css');

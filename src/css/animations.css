@@ -16,3 +16,9 @@
     transform: translateX(-50%) translateY(100%) scale(1);
   }
 }
+
+.main-button:hover,
+.go-back:hover,
+.btn-delay:hover {
+  background-color: lightpink;
+}

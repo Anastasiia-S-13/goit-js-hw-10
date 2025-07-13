@@ -1,0 +1,33 @@
+.buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  gap: 100px;
+}
+
+.main-button,
+.go-back,
+.btn-delay {
+  text-transform: uppercase;
+  padding: 8px 20px;
+  width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border: 1px solid #fd478a;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: background-color 250ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+.go-back {
+  margin-top: 50px;
+}
+
+.btn-delay {
+  width: inherit;
+  font-size: 16px;
+}
